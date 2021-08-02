@@ -1,4 +1,4 @@
-package com.epam.hw1;
+package com.epam.hw3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
