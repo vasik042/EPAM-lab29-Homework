@@ -1,6 +1,5 @@
 package com.epam.hw3.interceptor;
 
-import com.epam.hw3.controllers.UserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,11 +16,11 @@ public class LogInterceptor implements HandlerInterceptor {
     Logger logger;
 
     public LogInterceptor() {
-        logger = LoggerFactory.getLogger(LogInterceptor.class);;
+        logger = LoggerFactory.getLogger(LogInterceptor.class);
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         Integer id = (Integer) request.getSession().getAttribute("id");
         LocalDateTime startTime = LocalDateTime.now();
 
@@ -35,11 +34,11 @@ public class LogInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView){
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
         Integer id = (Integer) request.getSession().getAttribute("id");
         LocalDateTime endTime = LocalDateTime.now();
 

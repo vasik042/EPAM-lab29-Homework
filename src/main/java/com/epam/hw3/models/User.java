@@ -1,6 +1,9 @@
 package com.epam.hw3.models;
 
+import com.epam.hw3.DTOs.UserDTO;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -16,6 +19,12 @@ public class User {
     String username;
     String email;
     String password;
+    @ManyToMany
+    @JoinTable(
+            name = "users_books",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    Set<Book> books;
 
     public User(String firstName, String lastName, String username, String email, String password) {
         this.firstName = firstName;
@@ -26,6 +35,10 @@ public class User {
     }
 
     public User() {
+    }
+
+    public UserDTO toDTO(){
+        return new UserDTO(firstName, lastName, username, email);
     }
 
     public int getId() {
@@ -74,5 +87,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 }

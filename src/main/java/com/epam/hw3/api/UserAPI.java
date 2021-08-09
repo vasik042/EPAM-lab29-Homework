@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Api(tags = "User management API")
+@Api(tags = "Users management API")
 @RequestMapping("/users")
 public interface UserAPI {
 
     @ApiOperation("Create user")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UserModel createUser(@Valid @RequestBody UserDTO userDTO);
+    UserModel createUser(@Valid @RequestBody UserDTO userDTO);
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "email", paramType = "path", required = true, value = "User email")
@@ -27,7 +27,7 @@ public interface UserAPI {
     @ApiOperation("Get user")
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{email}", method = RequestMethod.GET)
-    public UserModel getUser(@PathVariable String email);
+    UserModel getUser(@PathVariable String email);
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "email", paramType = "path", required = true, value = "User email")
@@ -35,7 +35,7 @@ public interface UserAPI {
     @ApiOperation("Update user")
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{email}", method = RequestMethod.PUT)
-    public UserModel updateUser(@PathVariable String email, @Valid @RequestBody UserDTO userDTO);
+    UserModel updateUser(@PathVariable String email, @Valid @RequestBody UserDTO userDTO);
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "email", paramType = "path", required = true, value = "User email")
@@ -43,5 +43,5 @@ public interface UserAPI {
     @ApiOperation("Delete user")
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{email}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteUser(@PathVariable String email);
+    ResponseEntity<Void> deleteUser(@PathVariable String email);
 }

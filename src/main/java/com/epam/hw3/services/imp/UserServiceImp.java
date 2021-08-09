@@ -36,14 +36,14 @@ public class UserServiceImp implements UserService {
         HttpSession session = attr.getRequest().getSession(true);
         session.setAttribute("id", user.getId());
 
-        return userAssembler.toModel(new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail()));
+        return userAssembler.toModel(user.toDTO());
     }
 
     @Override
     public UserModel createUser(UserDTO userDTO) {
         if (userDTO.repeatPassword.equals(userDTO.password)){
             User user = userRepository.save(new User(userDTO.firstName, userDTO.lastName, userDTO.username, userDTO.email, userDTO.password));
-            return userAssembler.toModel(new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail()));
+            return userAssembler.toModel(user.toDTO());
         }else {
             throw new PasswordsNotMatchException();
         }
