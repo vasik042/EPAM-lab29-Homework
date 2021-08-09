@@ -1,13 +1,14 @@
 package com.epam.hw3.services;
 
 import com.epam.hw3.DTOs.UserDTO;
+import com.epam.hw3.controllers.models.UserModel;
 
 public interface UserService {
-    UserDTO findUser(String email);
+    UserModel findUser(String email);
 
-    UserDTO createUser(UserDTO userDTO);
+    UserModel createUser(UserDTO userDTO);
 
-    UserDTO updateUser(UserDTO userDTO);
+    UserModel updateUser(UserDTO userDTO);
 
     void deleteUser(String email);
 }

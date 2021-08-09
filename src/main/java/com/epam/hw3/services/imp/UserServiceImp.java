@@ -1,6 +1,8 @@
 package com.epam.hw3.services.imp;
 
 import com.epam.hw3.DTOs.UserDTO;
+import com.epam.hw3.controllers.assemblers.UserAssembler;
+import com.epam.hw3.controllers.models.UserModel;
 import com.epam.hw3.models.Errors.PasswordsNotMatchException;
 import com.epam.hw3.models.Errors.UserNotFoundException;
 import com.epam.hw3.models.User;
@@ -13,34 +15,36 @@ import org.springframework.stereotype.Service;
 public class UserServiceImp implements UserService {
 
     UserRepository userRepository;
+    UserAssembler userAssembler;
 
     @Autowired
-    public UserServiceImp(UserRepository userRepository) {
+    public UserServiceImp(UserRepository userRepository, UserAssembler userAssembler) {
         this.userRepository = userRepository;
+        this.userAssembler = userAssembler;
     }
 
-    public UserDTO findUser(String email) {
+    public UserModel findUser(String email) {
         User user = userRepository.findUserByEmail(email);
         if(user == null){
             throw new UserNotFoundException();
         }
-        return new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail());
+        return userAssembler.toModel(new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail()));
     }
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserModel createUser(UserDTO userDTO) {
         if (userDTO.repeatPassword.equals(userDTO.password)){
             User user = userRepository.save(new User(userDTO.firstName, userDTO.lastName, userDTO.username, userDTO.email, userDTO.password));
-            return new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail());
+            return userAssembler.toModel(new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail()));
         }else {
             throw new PasswordsNotMatchException();
         }
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO) {
+    public UserModel updateUser(UserDTO userDTO) {
         userRepository.updateUser(userDTO.firstName, userDTO.lastName, userDTO.password, userDTO.username, userDTO.email);
-        return userDTO;
+        return userAssembler.toModel(userDTO);
     }
 
     @Override

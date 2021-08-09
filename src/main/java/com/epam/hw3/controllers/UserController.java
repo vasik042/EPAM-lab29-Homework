@@ -1,6 +1,7 @@
 package com.epam.hw3.controllers;
 
 import com.epam.hw3.DTOs.UserDTO;
+import com.epam.hw3.controllers.models.UserModel;
 import com.epam.hw3.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +28,10 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UserDTO createUser(@Valid @RequestBody UserDTO userDTO) {
+    public UserModel createUser(@Valid @RequestBody UserDTO userDTO) {
         logger.info("Create user with email: " + userDTO.email);
 
-        UserDTO user = userService.createUser(userDTO);
+        UserModel user = userService.createUser(userDTO);
         if(user == null){
             throw new RuntimeException("Passwords don't match");
         }
@@ -39,14 +40,14 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{email}", method = RequestMethod.GET)
-    public UserDTO getUser(@PathVariable String email) {
+    public UserModel getUser(@PathVariable String email) {
         logger.info("Get user with email: " + email);
         return userService.findUser(email);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{email}", method = RequestMethod.PUT)
-    public UserDTO updateUser(@PathVariable String email, @Valid @RequestBody UserDTO userDTO) {
+    public UserModel updateUser(@PathVariable String email, @Valid @RequestBody UserDTO userDTO) {
         logger.info("Update user with email: " + email);
         return userService.updateUser(userDTO);
     }
