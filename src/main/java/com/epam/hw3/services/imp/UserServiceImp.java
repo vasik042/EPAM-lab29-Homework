@@ -1,6 +1,8 @@
 package com.epam.hw3.services.imp;
 
 import com.epam.hw3.DTOs.UserDTO;
+import com.epam.hw3.models.Errors.PasswordsNotMatchException;
+import com.epam.hw3.models.Errors.UserNotFoundException;
 import com.epam.hw3.models.User;
 import com.epam.hw3.repositories.UserRepository;
 import com.epam.hw3.services.UserService;
@@ -19,13 +21,20 @@ public class UserServiceImp implements UserService {
 
     public UserDTO findUser(String email) {
         User user = userRepository.findUserByEmail(email);
+        if(user == null){
+            throw new UserNotFoundException();
+        }
         return new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail());
     }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-        User user = userRepository.save(new User(userDTO.firstName, userDTO.lastName, userDTO.username, userDTO.email, userDTO.password));
-        return new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail());
+        if (userDTO.repeatPassword.equals(userDTO.password)){
+            User user = userRepository.save(new User(userDTO.firstName, userDTO.lastName, userDTO.username, userDTO.email, userDTO.password));
+            return new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail());
+        }else {
+            throw new PasswordsNotMatchException();
+        }
     }
 
     @Override
