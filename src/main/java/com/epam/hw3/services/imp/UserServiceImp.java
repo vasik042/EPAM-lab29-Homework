@@ -10,6 +10,10 @@ import com.epam.hw3.repositories.UserRepository;
 import com.epam.hw3.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpSession;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -28,6 +32,10 @@ public class UserServiceImp implements UserService {
         if(user == null){
             throw new UserNotFoundException();
         }
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(true);
+        session.setAttribute("id", user.getId());
+
         return userAssembler.toModel(new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail()));
     }
 
