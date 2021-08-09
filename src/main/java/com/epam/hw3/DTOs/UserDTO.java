@@ -14,10 +14,10 @@ public class UserDTO {
     @NotBlank(message = "Username should not be empty")
     public String username;
     @NotBlank(message = "Email should not be empty")
-    @Pattern(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+")
+    @Pattern(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+", message = "Email should be valid (example: someEmail@mail.com)")
     public String email;
     @NotBlank(message = "Password should not be empty")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Password should contains at least 8 characters, one uppercase letter and one number")
     public String password;
     @NotBlank(message = "Repeat password should not be empty")
     public String repeatPassword;
