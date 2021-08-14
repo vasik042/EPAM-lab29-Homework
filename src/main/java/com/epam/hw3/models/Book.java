@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book")
-@NamedQuery(name = "findAllOrderedByName",
+@NamedQuery(name = "Book.findAllOrderedByName",
         query = "SELECT b FROM Book b ORDER BY b.name")
 public class Book {
     @Id

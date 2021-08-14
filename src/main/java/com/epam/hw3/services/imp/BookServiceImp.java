@@ -37,7 +37,7 @@ public class BookServiceImp implements BookService {
     }
 
     public List<BookModel> findAllBooks(){
-        Query query = entityManager.createNamedQuery("findAllOrderedByName", Book.class);
+        Query query = entityManager.createNamedQuery("Book.findAllOrderedByName", Book.class);
         List<Book> resultList = query.getResultList();
 
         return resultList.stream().map(b -> bookAssembler.toModel(b.toDTO())).collect(Collectors.toList());

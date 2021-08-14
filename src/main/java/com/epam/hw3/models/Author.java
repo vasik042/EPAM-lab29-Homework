@@ -7,6 +7,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "author")
+@NamedNativeQuery(name = "Author.findAllOrderedByName",
+        query = "SELECT * FROM author ORDER BY first_name",
+        resultClass  = Author.class)
 public class Author {
     @Id
     @Column(name = "author_id", unique = true, nullable = false)

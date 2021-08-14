@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(tags = "Authors management API")
 @RequestMapping("/authors")
@@ -28,6 +29,11 @@ public interface AuthorAPI {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     AuthorModel getAuthor(@PathVariable int id);
+
+    @ApiOperation("Get all authors")
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    List<AuthorModel> getAllAuthors();
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", paramType = "path", required = true, value = "Author id")

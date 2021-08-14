@@ -23,22 +23,26 @@ public class Hw3Application {
 		UserServiceImp userServiceImp = (UserServiceImp) run.getBean("userServiceImp");
 		UserDTO userDTO1 = new UserDTO("Jon", "Noj", "nojon", "1");
 		UserDTO userDTO2 = new UserDTO("Noj", "Jon", "jonoj", "2");
+		UserDTO userDTO3 = new UserDTO("asdasd", "sdsd", "sadas", "3");
 		userDTO1.password = "1";
-		userDTO1.repeatPassword = "1";
+		userDTO3.password = "1";
 		userDTO2.password = "1";
+		userDTO1.repeatPassword = "1";
 		userDTO2.repeatPassword = "1";
+		userDTO3.repeatPassword = "1";
 		userServiceImp.createUser(userDTO1);
 		userServiceImp.createUser(userDTO2);
+		userServiceImp.createUser(userDTO3);
 
 		AuthorServiceImp authorServiceImp = (AuthorServiceImp) run.getBean("authorServiceImp");
-		AuthorDTO authorDTO1 = new AuthorDTO("Author", "1", "someBio");
-		AuthorDTO authorDTO2 = new AuthorDTO("Author", "2", null);
+		AuthorDTO authorDTO1 = new AuthorDTO("Author Z", "1", "someBio");
+		AuthorDTO authorDTO2 = new AuthorDTO("Author A", "2", null);
 		AuthorModel author1 = authorServiceImp.createAuthor(authorDTO1);
 		authorServiceImp.createAuthor(authorDTO2);
 
 		BookServiceImp bookServiceImp = (BookServiceImp) run.getBean("bookServiceImp");
 
-		BookDTO bookDTO1 = new BookDTO("Book1", "veryInteresting", 3);
+		BookDTO bookDTO1 = new BookDTO("Book1", "veryInteresting", author1.getAuthorDTO().id);
 		bookServiceImp.createBook(bookDTO1);
 	}
 
