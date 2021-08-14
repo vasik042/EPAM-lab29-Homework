@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -28,6 +29,12 @@ public interface BookAPI {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     BookModel getBook(@PathVariable int id);
+
+
+    @ApiOperation("Get all books")
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    List<BookModel> getAllBook();
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", paramType = "path", required = true, value = "Book id")

@@ -10,23 +10,37 @@ import com.epam.hw3.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class BookServiceImp implements BookService {
     BookRepository bookRepository;
     AuthorRepository authorRepository;
     BookAssembler bookAssembler;
+    EntityManager entityManager;
 
     @Autowired
-    public BookServiceImp(BookRepository bookRepository,AuthorRepository authorRepository, BookAssembler bookAssembler) {
+    public BookServiceImp(BookRepository bookRepository,AuthorRepository authorRepository, BookAssembler bookAssembler, EntityManager entityManager) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.bookAssembler = bookAssembler;
+        this.entityManager = entityManager;
     }
 
     @Override
     public BookModel findBook(int id) {
         Book book = bookRepository.findById(id).get();
         return bookAssembler.toModel(book.toDTO());
+    }
+
+    public List<BookModel> findAllBooks(){
+        Query query = entityManager.createNamedQuery("findAllOrderedByName", Book.class);
+        List<Book> resultList = query.getResultList();
+
+        return resultList.stream().map(b -> bookAssembler.toModel(b.toDTO())).collect(Collectors.toList());
     }
 
     @Override

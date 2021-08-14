@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class BookController implements BookAPI {
     BookService bookService;
@@ -29,6 +31,11 @@ public class BookController implements BookAPI {
     @Override
     public BookModel getBook(int id) {
         return bookService.findBook(id);
+    }
+
+    @Override
+    public List<BookModel> getAllBook() {
+        return bookService.findAllBooks();
     }
 
     @Override
