@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -28,6 +29,23 @@ public interface UserAPI {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{email}", method = RequestMethod.GET)
     UserModel getUser(@PathVariable String email);
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", paramType = "path", required = true, value = "User email")
+    })
+
+    @ApiOperation("Get all users sorted by name")
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    List<UserModel> getAllUsersSortedByName();
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", paramType = "path", required = true, value = "Page")
+    })
+    @ApiOperation("Get two users")
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/page={page}", method = RequestMethod.GET)
+    List<UserModel> getTwoUsers(@PathVariable int page);
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "email", paramType = "path", required = true, value = "User email")

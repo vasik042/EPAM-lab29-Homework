@@ -9,11 +9,16 @@ import com.epam.hw3.models.User;
 import com.epam.hw3.repositories.UserRepository;
 import com.epam.hw3.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -37,6 +42,20 @@ public class UserServiceImp implements UserService {
         session.setAttribute("id", user.getId());
 
         return userAssembler.toModel(user.toDTO());
+    }
+
+    @Override
+    public List<UserModel> findTwo(int page) {
+        Page<User> result = userRepository.findAll(PageRequest.of(page - 1, 2));
+
+        return result.stream().map(u -> userAssembler.toModel(u.toDTO())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserModel> findAllByName() {
+        List<User> result = userRepository.findAll(Sort.by(Sort.Direction.ASC, "firstName"));
+
+        return result.stream().map(u -> userAssembler.toModel(u.toDTO())).collect(Collectors.toList());
     }
 
     @Override
