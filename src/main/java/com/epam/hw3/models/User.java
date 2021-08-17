@@ -3,6 +3,7 @@ package com.epam.hw3.models;
 import com.epam.hw3.DTOs.UserDTO;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity

@@ -34,8 +34,7 @@ public class AuthorServiceImp implements AuthorService {
 
     @Override
     public List<AuthorModel> findAll() {
-        Query query = entityManager.createNamedQuery("Author.findAllOrderedByName", Author.class);
-        List<Author> resultList = query.getResultList();
+        List<Author> resultList = entityManager.createNamedQuery("Author.findAllOrderedByName", Author.class).getResultList();
 
         return resultList.stream().map(a -> authorAssembler.toModel(a.toDTO())).collect(Collectors.toList());
     }

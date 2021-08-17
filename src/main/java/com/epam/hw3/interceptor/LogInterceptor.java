@@ -21,11 +21,11 @@ public class LogInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        Integer id = (Integer) request.getSession().getAttribute("id");
+        String email = (String) request.getSession().getAttribute("email");
         LocalDateTime startTime = LocalDateTime.now();
 
         logger.info("LogInterceptor preHandle:");
-        logger.info("User with id='" + id + "' go to " + request.getRequestURL());
+        logger.info("User with email = '" + email + "' go to " + request.getRequestURL());
         logger.info("Status - " + response.getStatus());
         logger.info("StartTime - " + startTime);
         request.setAttribute("startTime", startTime);
@@ -39,11 +39,11 @@ public class LogInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
-        Integer id = (Integer) request.getSession().getAttribute("id");
+        String email = (String) request.getSession().getAttribute("email");
         LocalDateTime endTime = LocalDateTime.now();
 
         logger.info("LogInterceptor afterCompletion:");
-        logger.info("User with id='" + id + "' go to " + request.getRequestURL());
+        logger.info("User with email = '" + email + "' go to " + request.getRequestURL());
         logger.info("Status - " + response.getStatus());
         logger.info("EndTime - " + endTime);
     }

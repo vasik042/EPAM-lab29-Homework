@@ -9,7 +9,7 @@ public interface UserService {
 
     List<UserModel> findTwo(int page);
 
-    List<UserModel> findAllByName();
+    List<UserModel> findAllSortedByName();
 
     UserModel createUser(UserDTO userDTO);
 

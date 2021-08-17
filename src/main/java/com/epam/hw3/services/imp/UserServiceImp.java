@@ -13,10 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,9 +34,6 @@ public class UserServiceImp implements UserService {
         if(user == null){
             throw new UserNotFoundException();
         }
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
-        session.setAttribute("id", user.getId());
 
         return userAssembler.toModel(user.toDTO());
     }
@@ -52,7 +46,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<UserModel> findAllByName() {
+    public List<UserModel> findAllSortedByName() {
         List<User> result = userRepository.findAll(Sort.by(Sort.Direction.ASC, "firstName"));
 
         return result.stream().map(u -> userAssembler.toModel(u.toDTO())).collect(Collectors.toList());
