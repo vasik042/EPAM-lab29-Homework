@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface BookAPI {
 
     @ApiOperation("Create book")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     BookModel createBook(@Valid @RequestBody BookDTO bookDTO);
 
     @ApiImplicitParams({
@@ -27,13 +28,13 @@ public interface BookAPI {
     })
     @ApiOperation("Get book")
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     BookModel getBook(@PathVariable int id);
 
 
     @ApiOperation("Get all books")
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     List<BookModel> getAllBook();
 
     @ApiImplicitParams({

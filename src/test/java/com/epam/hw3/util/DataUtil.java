@@ -3,6 +3,7 @@ package com.epam.hw3.util;
 import com.epam.hw3.models.Author;
 import com.epam.hw3.models.Book;
 import com.epam.hw3.models.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DataUtil {
 
@@ -36,5 +37,13 @@ public class DataUtil {
         author.setId(1);
 
         return author;
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

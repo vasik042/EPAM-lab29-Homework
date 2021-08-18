@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface UserAPI {
 
     @ApiOperation("Create user")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     UserModel createUser(@Valid @RequestBody UserDTO userDTO);
 
     @ApiImplicitParams({
@@ -27,7 +28,7 @@ public interface UserAPI {
     })
     @ApiOperation("Get user")
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{email}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     UserModel getUser(@PathVariable String email);
 
     @ApiImplicitParams({
