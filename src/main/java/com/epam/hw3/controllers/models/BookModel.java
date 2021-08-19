@@ -12,6 +12,9 @@ public class BookModel extends RepresentationModel<BookModel> {
         this.bookDTO = bookDTO;
     }
 
+    public BookModel() {
+    }
+
     public BookDTO getBookDTO() {
         return bookDTO;
     }

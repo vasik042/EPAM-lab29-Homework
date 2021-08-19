@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -33,16 +34,16 @@ public class UserServiceImpTest {
 
     @Mock
     private UserRepository userRepository;
-    @Mock
+    @Spy
     private UserAssembler userAssembler;
 
     @Test
     void getUserTest() {
         User user = DataUtil.createUser(1);
 
-        when(userRepository.findUserByEmail("email1")).thenReturn(user);
+        when(userRepository.findUserByEmail(user.getEmail())).thenReturn(user);
 
-        UserModel userModel = userServiceImp.findUser("email1");
+        UserModel userModel = userServiceImp.findUser(user.getEmail());
 
         assertThat(userModel.getUserDTO(), allOf(
                 hasProperty("email", equalTo(user.getEmail())),

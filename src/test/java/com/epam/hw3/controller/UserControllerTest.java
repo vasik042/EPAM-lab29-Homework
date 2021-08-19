@@ -54,7 +54,6 @@ public class UserControllerTest {
         UserDTO userDTO = DataUtil.createUser(1).toDTO();
         userDTO.password = "111AAAaaa";
         userDTO.repeatPassword = "111AAAaaa";
-        userDTO.email = "someEmail@mail.com";
 
         mockMvc.perform(post("/users/")
                         .content(DataUtil.asJsonString(userDTO))
@@ -67,6 +66,7 @@ public class UserControllerTest {
     @Test
     void createUserValidationExceptionTest() throws Exception {
         UserDTO userDTO = DataUtil.createUser(1).toDTO();
+        userDTO.password = "111AAAaaa";
 
         mockMvc.perform(post("/users/")
                         .content(DataUtil.asJsonString(userDTO))
@@ -74,7 +74,8 @@ public class UserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$..errorType.length()").value("3"));
+                .andExpect(jsonPath("$..errorType").value("Validation error"))
+                .andExpect(jsonPath("$..message").value("Repeat password should not be empty"));
     }
 
     @Test

@@ -23,11 +23,11 @@ public class DataUtil {
     public static User createUser(int i) {
         User user = new User();
         user.setId(i);
-        user.setEmail("email" + i);
+        user.setEmail("email" + i + "@gmail.com");
         user.setUsername("username" + i);
         user.setFirstName("firstName" + i);
         user.setLastName("lastname" + i);
-        user.setPassword("password" + i);
+        user.setPassword("aaa111AAA" + i);
 
         return user;
     }

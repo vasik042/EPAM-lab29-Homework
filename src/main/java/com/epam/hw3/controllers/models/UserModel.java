@@ -12,6 +12,8 @@ public class UserModel extends RepresentationModel<UserModel> {
         this.userDTO = userDTO;
     }
 
+    public UserModel() {}
+
     public UserDTO getUserDTO() {
         return userDTO;
     }

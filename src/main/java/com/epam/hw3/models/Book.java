@@ -32,7 +32,7 @@ public class Book {
     }
 
     public BookDTO toDTO(){
-        return new BookDTO(name, description, author.id, id);
+        return new BookDTO(name, description, author.getId(), id);
     }
 
     public int getId() {

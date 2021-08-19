@@ -12,6 +12,9 @@ public class AuthorModel extends RepresentationModel<AuthorModel> {
         this.authorDTO = authorDTO;
     }
 
+    public AuthorModel() {
+    }
+
     public AuthorDTO getAuthorDTO() {
         return authorDTO;
     }

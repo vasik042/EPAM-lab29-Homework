@@ -33,6 +33,7 @@ public class BookServiceImp implements BookService {
     @Override
     public BookModel findBook(int id) {
         Book book = bookRepository.findById(id).get();
+
         return bookAssembler.toModel(book.toDTO());
     }
 
